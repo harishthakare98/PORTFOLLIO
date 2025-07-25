@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harish Thakare | Software Engineer</title>
+    
+    <!-- Google Fonts: Poppins & Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* CSS Variables for Theme Colors and Fonts */
+        :root {
+            --primary-color: #FF6F00; /* Orange */
+            --primary-color-dark: #e65c00;
+            --background-color: #FFF8E7; /* Creamy White */
+            --text-color: #2B2B2B; /* Charcoal Gray */
+            --card-bg-color: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        /* Global Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Container for centering content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            overflow: hidden; /* Prevents animations from showing scrollbars */
+        }
+
+        /* Headings */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-color-dark));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Header and Navigation */
+        .header {
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+        
+        .header.scrolled {
+            background-color: rgba(255, 248, 231, 0.85); /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-family: var(--font-heading);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        #hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100vh;
+            padding-top: 80px; /* Offset for fixed header */
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-content .title {
+            font-size: 1.6rem;
+            font-family: var(--font-heading);
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #555;
+            min-height: 2.4rem; /* Reserve space for typing text */
+        }
+        
+        .hero-content .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.6rem;
+            background-color: var(--text-color);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .hero-content .tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-color-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 111, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* About Section */
+        #about .container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background-color: var(--card-bg-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            margin-bottom: 12px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-card li i {
+            color: var(--primary-color);
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+        }
+        
+        .project-image.p1 { background-image: url('https://placehold.co/600x400/FF6F00/FFF8E7?text=ML+Project'); }
+        .project-image.p2 { background-image: url('https://placehold.co/600x400/2B2B2B/FFF8E7?text=AI+Assistant'); }
+        .project-image.p3 { background-image: url('https://placehold.co/600x400/FF6F00/FFF8E7?text=Admin+Portal'); }
+        .project-image.p4 { background-image: url('https://placehold.co/600x400/2B2B2B/FFF8E7?text=Java+Chat'); }
+
+
+        .project-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .project-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: color 0.3s ease;
+        }
+
+        .project-links a:hover {
+            color: var(--primary-color-dark);
+        }
+        
+        .project-links i {
+            margin-right: 8px;
+        }
+
+        /* Experience & Education Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            opacity: 0.2;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: -14px;
+            background-color: var(--background-color);
+            border: 5px solid var(--primary-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+            transform: scale(1.2);
+        }
+
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+        .timeline-item.right::after { left: -12px; }
+
+        .timeline-content {
+            padding: 25px;
+            background-color: var(--card-bg-color);
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .timeline-content h3 { font-size: 1.3rem; color: var(--primary-color); }
+        .timeline-content .date { font-size: 0.9rem; font-weight: 500; color: #777; margin-bottom: 10px; }
+        .timeline-content ul { padding-left: 20px; }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 { margin-bottom: 20px; font-size: 1.5rem; }
+        .contact-info p { margin-bottom: 15px; font-size: 1.1rem; }
+        .contact-info i { color: var(--primary-color); margin-right: 15px; width: 20px; text-align: center; }
+
+        .social-links { margin-top: 25px; }
+        .social-links a {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-right: 20px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+        .social-links a:hover { color: var(--primary-color); transform: translateY(-5px); }
+
+        form .form-group { margin-bottom: 20px; }
+        form input, form textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(255, 111, 0, 0.2);
+        }
+        form textarea { resize: vertical; min-height: 150px; }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: #f0f0f0;
+            text-align: center;
+            padding: 25px 0;
+        }
+        footer p { font-family: var(--font-heading); }
+        footer a { color: var(--primary-color); text-decoration: none; }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 111, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .hero-content .title { font-size: 1.3rem; min-height: 2rem; }
+            h2 { font-size: 2.2rem; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--background-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            }
+            .nav-links.active { left: 0; }
+            .nav-links li { margin: 25px 0; }
+            .nav-links a { font-size: 1.4rem; }
+            .hamburger { display: block; }
+
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item.right { left: 0%; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 19px; }
+        }
+        
+        @media (max-width: 480px) {
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn { width: 80%; text-align: center; }
+            .btn-secondary { margin-left: 0; margin-top: 15px; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="container navbar">
+            <a href="#hero" class="logo">HT</a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content reveal">
+                <h1>Harish Thakare</h1>
+                <p class="title"><span id="typing-text"></span><span class="typing-cursor"></span></p>
+                <p class="tagline">Automating ideas into scalable, elegant systems.</p>
+                <div class="btn-group">
+                    <a href="resume.pdf" class="btn btn-primary" download>Download Resume</a>
+                    <a href="https://github.com/harishthakare98" target="_blank" class="btn btn-secondary">GitHub Profile</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="reveal">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>
+                    “I’m a passionate and versatile Computer Science engineer with real-world experience building backend systems, deploying automation workflows, and orchestrating DevOps pipelines.
+
+I specialize in tools like GitHub Actions, Django, n8n, Make.com, and CI/CD scripting — and enjoy turning complex problems into elegant, automated solutions. I believe in precision, creativity, and continuous learning through hands-on building.”++
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="reveal">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card reveal">
+                        <h3>DevOps & Automation</h3>
+                        <ul>
+                            <li><i class="fab fa-git-alt"></i>Git, GitHub & Linux</li>
+                            <li><i class="fas fa-terminal"></i>Shell Scripting</li>
+                            <li><i class="fas fa-cogs"></i>CI/CD Pipelines</li>
+                            <li><i class="fas fa-robot"></i>n8n & Make.com</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Backend & Frontend</h3>
+                        <ul>
+                            <li><i class="fab fa-python"></i>Python (Django, Flask)</li>
+                            <li><i class="fab fa-java"></i>Java & REST APIs</li>
+                            <li><i class="fab fa-html5"></i>HTML, CSS, JavaScript</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Programming & Databases</h3>
+                        <ul>
+                            <li><i class="fas fa-code"></i>Python, Java, C++, C</li>
+                            <li><i class="fas fa-database"></i>SQLite, MySQL, PostgreSQL</li>
+                            <li><i class="fas fa-tools"></i>Deployment & Tooling</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="reveal">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <article class="project-card reveal">
+                        <div class="project-image p1"></div>
+                        <div class="project-info">
+                            <h3>Admission Predictor</h3>
+                            <p>A Django and Machine Learning based system to predict university admissions. The project is CI-ready and configured with GitHub Actions.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/harishthakare98/Admission-Predictor" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card reveal">
+                        <div class="project-image p2"></div>
+                        <div class="project-info">
+                            <h3>JARVIS AI Assistant</h3>
+                            <p>A Python-based voice automation system inspired by JARVIS, capable of performing various tasks through voice commands.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/harishthakare98/JARVIS" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card reveal">
+                        <div class="project-image p3"></div>
+                        <div class="project-info">
+                            <h3>College Management System</h3>
+                            <p>A comprehensive admin portal built with Django for managing college-related data and operations efficiently.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/harishthakare98/College-Management-System" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card reveal">
+                        <div class="project-image p4"></div>
+                        <div class="project-info">
+                            <h3>Group Chat in Java</h3>
+                            <p>A real-time, multi-client group chat application developed using Java Sockets for network communication.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/harishthakare98/Group-Chat-in-Java" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education Section -->
+        <section id="experience" class="reveal">
+            <div class="container">
+                <h2>Experience & Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item left reveal">
+                        <div class="timeline-content">
+                            <h3>Technical Intern</h3>
+                            <p class="date">Xilvoraink Pvt. Ltd.</p>
+                            <ul>
+                                <li>Automated workflows using n8n, Make.com, and Telegram bots.</li>
+                                <li>Managed publishing backend and CI processes.</li>
+                                <li>Resulted in a 20% reduction in manual workload.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item right reveal">
+                        <div class="timeline-content">
+                            <h3>B.Tech, Computer Science</h3>
+                            <p class="date">Sandip University (2024–2027)</p>
+                            <p>Pursuing my Bachelor's degree with a focus on advanced software engineering and systems design.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left reveal">
+                        <div class="timeline-content">
+                            <h3>Diploma, Computer Engineering</h3>
+                            <p class="date">Govt Polytechnic Achalpur (2020–2024)</p>
+                            <p>Built a strong foundation in core computer science principles, programming, and hardware.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Me Section -->
+        <section id="contact" class="reveal">
+            <div class="container">
+                <h2>Contact Me</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>I'm open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out.</p>
+                        <p><i class="fas fa-envelope"></i> harishthakare80@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> +91-9356051072</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Nashik, Maharashtra, India</p>
+                        <div class="social-links">
+                            <a href="https://github.com/harishthakare98" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/harish-thakare-4807a8339" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/harishthakare98" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form action="https://formspree.io/f/xnnzdppd"  method="POST">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 <a href="#hero">Harish Thakare</a>. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const sections = document.querySelectorAll('section');
+            const navLi = document.querySelectorAll('.nav-links li a');
+
+            // 1. Header scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // 2. Mobile navigation toggle
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        hamburger.querySelector('i').classList.add('fa-bars');
+                        hamburger.querySelector('i').classList.remove('fa-times');
+                    }
+                });
+            });
+
+            // 3. Typing animation
+            const typingTextElement = document.getElementById('typing-text');
+            const texts = ["Software Engineer", "DevOps Expert", "Automation Specialist"];
+            let textIndex = 0;
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < texts[textIndex].length) {
+                    typingTextElement.textContent += texts[textIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(erase, 2000);
+                }
+            }
+
+            function erase() {
+                if (charIndex > 0) {
+                    typingTextElement.textContent = texts[textIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(erase, 50);
+                } else {
+                    textIndex = (textIndex + 1) % texts.length;
+                    setTimeout(type, 500);
+                }
+            }
+            
+            type();
+
+            // 4. Scroll reveal animation
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+            
+            // 5. Scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // 6. Active nav link on scroll
+            window.addEventListener('scroll', ()=> {
+                let current = '';
+                sections.forEach( section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if(pageYOffset >= (sectionTop - sectionHeight / 3)){
+                        current = section.getAttribute('id');
+                    }
+                })
+
+                navLi.forEach( a => {
+                    a.classList.remove('active');
+                    if(a.getAttribute('href').includes(current)){
+                        a.classList.add('active');
+                    }
+                })
+            });
+
+        });
+    </script>
+
+</body>
+</html>
